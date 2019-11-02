@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: white;
 }
 
 .App-logo {
@@ -8,10 +9,10 @@
 }
 
 .App-header {
-  height: 150px;
   padding: 20px;
   color: white;
   display: inline-block;
+  margin: 20px auto;
 }
 
 .App-title {
@@ -25,6 +26,15 @@
 .add-food {
   padding: 20px;
   width: 200px;
+  color: white;
+  background-color: black;
+  font-weight: bolder;
+}
+
+.search-food {
+  padding: 20px;
+  width: 200px;
+  text-align: center;
 }
 
 @keyframes App-logo-spin {
@@ -34,9 +44,4 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.search-food {
-  padding: 20px;
-  width: 200px;
 }

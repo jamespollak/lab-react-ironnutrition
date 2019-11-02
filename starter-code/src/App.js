@@ -11,7 +11,8 @@ class App extends Component {
     super();
     this.state = {
       allFoods: foods,
-      toggleModal: false
+      toggleModal: false,
+      todaysFood: []
     };
   }
 
@@ -19,6 +20,9 @@ class App extends Component {
     return this.state.allFoods.map((food, i) => {
       return (
         <FoodBox
+          addTodaysFood={this.addTodaysFood}
+          // quantity={food.quantity}
+          // changeQuantity={food.changeQuantity}
           key={i}
           name={food.name}
           calories={food.calories}
@@ -41,14 +45,35 @@ class App extends Component {
     // list of food = this.state.allFoods
     const userInput = e.target.value;
     // filter look up doc of filter => returns a new array with filter elements.
-    var resultOfFilter = this.state.allFoods.filter(
+    var resultOfFilter = foods.filter(
       e => e.name.toLowerCase().indexOf(userInput.toLowerCase()) == 0
     );
     // with new array call this.setState({allFoods : resultOfFilter })
     this.setState({ allFoods: resultOfFilter });
   };
 
+  addTodaysFood = food => {
+    const todaysFood = [...this.state.todaysFood];
+    const foodExists = todaysFood.some(elem => elem.name === food.name);
+    if (!foodExists) {
+      todaysFood.push(food);
+    }
+    for (let i = 0; i < todaysFood.length; i += 1) {
+      if (todaysFood[i].name === food.name) {
+        todaysFood[i].quantity = food.quantity;
+      }
+    }
+    this.setState({ todaysFood: todaysFood });
+  };
+
+  removeFood(index) {
+    const todaysFood = [...this.state.todaysFood];
+    todaysFood.splice(index, 1);
+    this.setState({ todaysFood });
+  }
+
   render() {
+    const { todaysFood } = this.state;
     return (
       <div className="App">
         <header className="App-header">
@@ -64,7 +89,37 @@ class App extends Component {
             <Modal toggleModal={this.toggleModal} addFood={this.addFood} />
           )}
         </header>
-        {this.allFoods()}
+        <div className="container">
+          <div className="columns">
+            <div className="column">
+              <div className="all-foods">{this.allFoods()}</div>
+            </div>
+            <div className="column">
+              <div className="food">
+                <strong>Todays Food</strong>
+                <ul>
+                  {this.state.todaysFood.map((food, index) => (
+                    <li key={index} id={index}>
+                      {food.quantity} {food.name} ={" "}
+                      {food.calories * food.quantity} cal{" "}
+                      <button onClick={() => this.removeFood(index)}>
+                        Remove
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+                <h2>
+                  Total Calories:{" "}
+                  {todaysFood.reduce(
+                    (acc, food) => (acc += food.calories * food.quantity),
+                    0
+                  )}{" "}
+                  cal
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
