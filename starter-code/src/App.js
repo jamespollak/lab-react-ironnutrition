@@ -60,7 +60,7 @@ class App extends Component {
     }
     for (let i = 0; i < todaysFood.length; i += 1) {
       if (todaysFood[i].name === food.name) {
-        todaysFood[i].quantity = food.quantity;
+        todaysFood[i].quantity += food.quantity;
       }
     }
     this.setState({ todaysFood: todaysFood });

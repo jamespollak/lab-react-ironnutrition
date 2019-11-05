@@ -94,5 +94,11 @@
     "calories": 125,
     "image": "https://i.imgur.com/URhdrAm.png",
     "quantity": 0
+  },
+  {
+    "name": "Ramen",
+    "calories": 400,
+    "image": "https://media.gettyimages.com/photos/vegan-kim-chi-ramen-picture-id840781644?s=612x612",
+    "quantity": 0
   }
 ]
